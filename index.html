@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wajih Kassraoui – Embedded Systems &amp; IoT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--bg:#f6f7ff;--surface:#fff;--soft:#eceeff;--ink:#12163a;--muted:#555b86;--line:#dadef6;--blue:#3d63e8;--violet:#7c4ddb;--grad:linear-gradient(120deg,var(--blue),var(--violet));--hero:radial-gradient(900px 420px at 85% -10%,#d9defc,transparent),radial-gradient(700px 380px at 0% 30%,#e8dcff,transparent);--navbg:rgba(246,247,255,.85);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0d26;--surface:#12163a;--soft:#1a1f52;--ink:#eceeff;--muted:#a3a9d6;--line:#262b66;--blue:#7096ff;--violet:#a98bff;--hero:radial-gradient(900px 420px at 85% -10%,#1d2a7a,transparent),radial-gradient(700px 380px at 0% 30%,#3a1f78,transparent);--navbg:rgba(10,13,38,.85)}}
+:root[data-theme="dark"]{--bg:#0a0d26;--surface:#12163a;--soft:#1a1f52;--ink:#eceeff;--muted:#a3a9d6;--line:#262b66;--blue:#7096ff;--violet:#a98bff;--hero:radial-gradient(900px 420px at 85% -10%,#1d2a7a,transparent),radial-gradient(700px 380px at 0% 30%,#3a1f78,transparent);--navbg:rgba(10,13,38,.85)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Sora",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--navbg);z-index:30}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--violet);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--navbg);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav{display:flex;align-items:center;gap:22px;height:60px}
+nav .logo{font-weight:800;letter-spacing:-.02em;text-decoration:none;margin-right:auto;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+nav a.l{font-size:.9rem;color:var(--muted);text-decoration:none}
+nav a.l:hover{color:var(--ink)}
+#theme{background:var(--soft);border:1px solid var(--line);color:var(--ink);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem}
+.hero{background:var(--hero);padding:64px 0 56px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
+.hero h1{font-size:clamp(2.4rem,6.4vw,4.6rem);line-height:1.02;letter-spacing:-.04em;margin:0 0 18px;font-weight:800}
+.hero h1 span{display:block;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);font-size:1.08rem;max-width:46ch;margin:0 0 26px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:600;font-size:.95rem;text-decoration:none;border:1px solid var(--line);background:var(--surface)}
+.btn.p{background:var(--grad);color:#fff;border-color:transparent}
+.btn:hover{transform:translateY(-2px);transition:transform .2s}
+.art{width:100%;height:auto;max-width:430px;justify-self:center}
+.tr{stroke-dasharray:6 10;animation:flow 2.4s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-64}}
+section{padding:68px 0}
+h2{font-size:clamp(1.6rem,3.4vw,2.2rem);letter-spacing:-.03em;margin:0 0 10px;line-height:1.15}
+.sub{color:var(--muted);margin:0 0 30px;max-width:60ch}
+.results{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-top:-34px;position:relative}
+.res{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.res b{display:block;font-size:1.9rem;letter-spacing:-.03em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.2}
+.res span{font-size:.88rem;color:var(--muted)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.tab{font:inherit;font-size:.88rem;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.tab[aria-pressed="true"]{background:var(--grad);color:#fff;border-color:transparent}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px;transition:border-color .2s,transform .2s}
+.card:hover{border-color:var(--violet);transform:translateY(-3px)}
+.card.f{grid-column:span 2;background:linear-gradient(135deg,var(--surface),var(--soft))}
+.ic{width:46px;height:46px;border-radius:12px;background:var(--grad);display:grid;place-items:center;color:#fff}
+.ic svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card h3{margin:2px 0 0;font-size:1.05rem;letter-spacing:-.01em;line-height:1.3}
+.card p{margin:0;color:var(--muted);font-size:.92rem}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.tag{font-size:.76rem;padding:3px 10px;border-radius:999px;background:var(--soft);color:var(--ink)}
+.st{font-size:.76rem;font-weight:600;color:var(--violet)}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px 40px}
+.skills h3{font-size:.95rem;margin:0 0 10px;color:var(--blue)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:.86rem}
+.tl{border-left:2px solid var(--line);margin-left:6px;display:grid;gap:26px}
+.tl>div{position:relative;padding-left:26px}
+.tl>div::before{content:"";position:absolute;left:-8px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--grad);border:3px solid var(--bg)}
+.tl h3{margin:0;font-size:1.05rem}
+.tl small{color:var(--violet);font-weight:600}
+.tl p{margin:4px 0 0;color:var(--muted);font-size:.93rem;max-width:68ch}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:44px}
+.cta{background:var(--grad);color:#fff;border-radius:20px;padding:44px 34px}
+.cta h2{margin-bottom:8px}
+.cta p{margin:0 0 22px;max-width:52ch;opacity:.92}
+.cta .btn{background:#fff;color:#1b1f5e;border-color:transparent}
+footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center}
+@media (max-width:820px){.hero .wrap,.two{grid-template-columns:1fr}.card.f{grid-column:auto}nav .l{display:none}.hero{padding-top:40px}.art{max-width:300px}}
+@media (prefers-reduced-motion:reduce){.tr{animation:none}html{scroll-behavior:auto}.btn:hover,.card:hover{transform:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></symbol>
+<symbol id="pin" viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.5A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14h4"/></symbol>
+<symbol id="hand" viewBox="0 0 24 24"><path d="M8 13V5a1.5 1.5 0 0 1 3 0v6M11 10V3.5a1.5 1.5 0 0 1 3 0V10M14 10V5a1.5 1.5 0 0 1 3 0v8M8 13l-1.6-2.2a1.5 1.5 0 0 0-2.4 1.8L7 18a6 6 0 0 0 5 3h1a5 5 0 0 0 5-5v-3"/></symbol>
+<symbol id="cloud" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 0 1-.5-9A6 6 0 0 1 18 9.5 4 4 0 0 1 17.5 18z"/><path d="M12 11v6M9.5 13.5 12 11l2.5 2.5"/></symbol>
+<symbol id="brain" viewBox="0 0 24 24"><path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 6 1V4a3 3 0 0 0-3 0zM15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-6 1"/></symbol>
+<symbol id="home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 9.5V21h14V9.5"/><path d="M9.5 15a3.5 3.5 0 0 1 5 0M8 13a6 6 0 0 1 8 0"/></symbol>
+<symbol id="radio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 7.8a6 6 0 0 1 0 8.4M4.9 4.9a10 10 0 0 0 0 14.2M19.1 4.9a10 10 0 0 1 0 14.2"/></symbol>
+<symbol id="shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.2 8 8 9 4.8-1 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+<symbol id="gh" viewBox="0 0 24 24"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></symbol>
+<symbol id="in" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></symbol>
+</defs>
+</svg>
+
+<header><div class="wrap"><nav>
+<a class="logo" href="#top">Wajih Kassraoui</a>
+<a class="l" href="#projects">Projects</a><a class="l" href="#skills">Skills</a><a class="l" href="#path">Path</a><a class="l" href="#contact">Contact</a>
+<button id="theme" aria-label="Switch light or dark theme">◐</button>
+</nav></div></header>
+
+<main id="top">
+<div class="hero"><div class="wrap">
+<div>
+<h1>Wajih Kassraoui <span>builds from silicon to cloud.</span></h1>
+<p>Computer Engineering student at ISIMA (Embedded Systems &amp; IoT track). I design FPGA logic, write firmware, ship Android apps with Node.js backends, and train small AI models. Looking for an internship on real IoT projects.</p>
+<div class="btns">
+<a class="btn p" href="#projects">See my projects</a>
+<a class="btn" href="https://github.com/wajih8" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><use href="#gh"/></svg>GitHub</a>
+<a class="btn" href="https://linkedin.com/in/wajih-kassraoui" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><use href="#in"/></svg>LinkedIn</a>
+</div>
+</div>
+<svg class="art" viewBox="0 0 400 360" role="img" aria-label="Illustration of a microchip sending signals through circuit traces">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f7cff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+<g fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round" class="tr">
+<path d="M150 150H70V60H20"/><path d="M150 180H40"/><path d="M150 210H70V300H20"/>
+<path d="M250 150h80V60h50"/><path d="M250 180h110"/><path d="M250 210h80v90h50"/>
+<path d="M175 110V40h-50"/><path d="M225 110V20h60"/><path d="M175 250v70h-60"/><path d="M225 250v50h70"/>
+</g>
+<g fill="url(#g)"><circle cx="20" cy="60" r="7"/><circle cx="40" cy="180" r="7"/><circle cx="20" cy="300" r="7"/><circle cx="380" cy="60" r="7"/><circle cx="360" cy="180" r="7"/><circle cx="380" cy="300" r="7"/><circle cx="125" cy="40" r="7"/><circle cx="285" cy="20" r="7"/><circle cx="115" cy="320" r="7"/><circle cx="295" cy="300" r="7"/></g>
+<rect x="140" y="110" width="120" height="140" rx="18" fill="url(#g)"/>
+<rect x="156" y="126" width="88" height="108" rx="10" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2"/>
+<text x="200" y="190" text-anchor="middle" font-family="Sora,system-ui,sans-serif" font-weight="800" font-size="30" fill="#fff">SoC</text>
+</svg>
+</div></div>
+
+<div class="wrap">
+<div class="results">
+<div class="res"><b>75th worldwide</b><span>IEEEXtreme 20.0 (2026), also 10th in Tunisia</span></div>
+<div class="res"><b>1st</b><span>in my IEEE Student Branch, IEEEXtreme 20.0</span></div>
+<div class="res"><b>5 years</b><span>of professional CAD/CAM work</span></div>
+<div class="res"><b>3 languages</b><span>Arabic (native), French and English</span></div>
+</div>
+</div>
+
+<section id="projects"><div class="wrap">
+<h2>Projects</h2>
+<p class="sub">Hardware, AI and full-stack work. Filter by area.</p>
+<div class="tabs" id="tabs"></div>
+<div class="grid" id="grid"></div>
+</div></section>
+
+<section id="skills" style="padding-top:20px"><div class="wrap">
+<h2>Skills</h2>
+<p class="sub">The tools I use across hardware, software and data.</p>
+<div class="skills" id="skillgrid"></div>
+</div></section>
+
+<section id="path"><div class="wrap two">
+<div>
+<h2>Experience and education</h2>
+<div class="tl" style="margin-top:26px">
+<div><small>2024 to present</small><h3>Bachelor in Computer Engineering (LCE), ISIMA</h3><p>Embedded Systems &amp; IoT track. Second year covers embedded systems, network architecture, internet applications, systems engineering and information security. Key module: SoC &amp; interfacing technologies (STM32, FPGA, ARM, IoT).</p></div>
+<div><small>5 years</small><h3>CAD/CAM Technician, OCG &amp; Printuim</h3><p>Maintained CAD software, 3D scanners, printers and milling machines, and produced parts with metal 3D printing. Independent dental CAD designer on Exocad since the age of 15. Blender4Dental certified.</p></div>
+</div>
+</div>
+<div>
+<h2>Competitions and community</h2>
+<div class="tl" style="margin-top:26px">
+<div><small>2026</small><h3>IEEEXtreme 20.0</h3><p>1st in my Student Branch, 10th in Tunisia, 75th worldwide.</p></div>
+<div><small>2026</small><h3>Officer and photographer, IEEEXtreme 20.0</h3><p>Covered the event and supplied images for the Student Branch’s communication.</p></div>
+<div><small>2025</small><h3>IEEEXtreme 19.0</h3><p>4th in my Student Branch.</p></div>
+<div><small>Ongoing</small><h3>IEEE member</h3><p>Contributor at CIS, RAS and CS student chapter events.</p></div>
+</div>
+</div>
+</div></section>
+
+<section id="contact" style="padding-top:20px"><div class="wrap">
+<div class="cta">
+<h2>Let’s build something connected.</h2>
+<p>I’m looking for an internship where I can apply embedded, mobile and AI skills to real IoT projects. The best way to reach me is through LinkedIn.</p>
+<div class="btns">
+<a class="btn" href="https://linkedin.com/in/wajih-kassraoui" target="_blank" rel="noopener">Message me on LinkedIn</a>
+<a class="btn" href="https://github.com/wajih8" target="_blank" rel="noopener">Browse my GitHub</a>
+</div>
+</div>
+</div></section>
+</main>
+<footer><div class="wrap">Wajih Kassraoui, Zaghouan, Tunisia</div></footer>
+
+<script>
+var P=[
+{t:"FPGA and SoC development",d:"Moved from VHDL logic in Vivado to software in Vitis: enabled the processor on a SoC, built custom hardware logic, ran programs on the board, and tested UART and LED control.",c:"Embedded",i:"chip",g:["VHDL","Vivado","Vitis","UART"],f:1,s:"2026"},
+{t:"Life360-style location sharing app",d:"Android client in Kotlin (Google Maps, OkHttp WebSocket, Retrofit) with a Node.js backend (Express, better-sqlite3, JWT, WebSocket). Real-time GPS, speed detection and driving reports, targeted at Oracle Cloud Free Tier.",c:"Mobile and web",i:"pin",g:["Kotlin","Node.js","WebSocket","JWT"],f:1,s:"2026"},
+{t:"Raspberry Pi Pico 2 prototype",d:"Personal home-automation project that also experiments with broadcasting an FM radio signal.",c:"Embedded",i:"radio",g:["Pico 2","IoT","FM"]},
+{t:"Smart Home IoT mini-project",d:"A smart-home prototype built to explore how connected devices integrate and exchange data.",c:"Embedded",i:"home",g:["IoT","Sensors"]},
+{t:"Hand detection and tracking",d:"Computer-vision app that detects the hand and draws its landmarks on the image.",c:"AI",i:"hand",g:["MediaPipe","Python"]},
+{t:"Gesture-to-letter classifier",d:"Recorded my own dataset of hand positions, then trained a model that maps gestures to letters.",c:"AI",i:"hand",g:["Dataset","Classification"]},
+{t:"Tunisian derja language model",d:"Fine-tuned an AI model to better understand and answer in Tunisian dialect.",c:"AI",i:"brain",g:["Fine-tuning","NLP"]},
+{t:"TSYP 14: false data injection detection",d:"Early models that recognise anomalies and injected false data.",c:"AI",i:"shield",g:["Anomaly detection","IEEE"],s:"In progress"},
+{t:"Mini-LLM exploration",d:"Started collecting a dataset and compared several ways to build a small language model. Paused because of hardware limits.",c:"AI",i:"brain",g:["LLM","Dataset"],s:"Paused"},
+{t:"Cloud media upload system",d:"HTML/CSS/JS interface on a Node.js and Express backend with Multer for multi-file uploads, per-user tracking and an admin dashboard.",c:"Mobile and web",i:"cloud",g:["Node.js","Express","Multer"]},
+{t:"Android chat app",d:"Java app with Retrofit, network error handling and custom adapters. Fixed race conditions and SQLite locking bugs.",c:"Mobile and web",i:"chat",g:["Java","Retrofit","SQLite"],s:"2025"},
+{t:"Client-server chat app",d:"Python authentication, a Node.js chat API and session management.",c:"Mobile and web",i:"chat",g:["Python","Node.js"]},
+{t:"TSYP 13 WIE challenge",d:"Contributed to a communication platform with a chatbot, gesture recognition and voice processing.",c:"AI",i:"chat",g:["Chatbot","Voice","IEEE"],s:"2025"}
+];
+var S={"Languages":["C","C++","Java","Kotlin","Python","JavaScript","PHP","Rust"],"Embedded and IoT":["STM32","Arduino","Raspberry Pi","Pico 2","FPGA (VHDL)","Vivado","Vitis","UART","Sensors"],"Mobile":["Android Studio","Kotlin","Java","Retrofit","RecyclerView","OkHttp WebSocket"],"Web and backend":["HTML","CSS","JavaScript","React.js","Node.js","Express","PHP"],"Data and AI":["MediaPipe","Gesture recognition","Fine-tuning","Anomaly detection","Hadoop","Docker"],"Networking and databases":["WebSocket","JWT","WebRTC","Client-server design","SQLite","MySQL","Oracle DB"],"Tools":["VS Code","GCC/MinGW","Git/GitHub","LabVIEW","Blender"]};
+var cats=["All","Embedded","AI","Mobile and web"],cur="All";
+function h(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function draw(){
+document.getElementById("tabs").innerHTML=cats.map(function(c){return '<button class="tab" aria-pressed="'+(c===cur)+'" data-c="'+c+'">'+c+'</button>'}).join("");
+document.getElementById("grid").innerHTML=P.filter(function(p){return cur==="All"||p.c===cur}).map(function(p){
+return '<article class="card'+(p.f?' f':'')+'"><div class="ic"><svg aria-hidden="true"><use href="#'+p.i+'"/></svg></div>'+(p.s?'<span class="st">'+p.s+'</span>':'')+'<h3>'+h(p.t)+'</h3><p>'+h(p.d)+'</p><div class="tags">'+p.g.map(function(x){return '<span class="tag">'+h(x)+'</span>'}).join("")+'</div></article>'}).join("");
+}
+document.getElementById("tabs").addEventListener("click",function(e){var c=e.target.getAttribute("data-c");if(c){cur=c;draw()}});
+draw();
+document.getElementById("skillgrid").innerHTML=Object.keys(S).map(function(k){return '<div><h3>'+k+'</h3><div class="chips">'+S[k].map(function(x){return '<span class="chip">'+h(x)+'</span>'}).join("")+'</div></div>'}).join("");
+var r=document.documentElement,b=document.getElementById("theme");
+try{var sv=localStorage.getItem("theme");if(sv)r.setAttribute("data-theme",sv)}catch(e){}
+b.addEventListener("click",function(){
+var dark=r.getAttribute("data-theme")==="dark"||(!r.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme: dark)").matches);
+var n=dark?"light":"dark";r.setAttribute("data-theme",n);
+try{localStorage.setItem("theme",n)}catch(e){}
+});
+</script>
+</body>
+</html>
